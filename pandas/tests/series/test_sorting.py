@@ -144,3 +144,19 @@ class TestSeriesSorting(TestData, tm.TestCase):
         # rows share same level='A': sort has no effect without remaining lvls
         res = s.sort_index(level='A', sort_remaining=False)
         assert_series_equal(s, res)
+
+    def test_sort_index_nan(self):
+
+        # GH13729
+        nan = np.nan
+        ser = Series(['A', nan, 'C', 'D'], [1, 2, 0, nan])
+
+        # na_position='last', kind='quicksort'
+        sorted_series = ser.sort_index(kind='quicksort', na_position='last')
+        expected_series = Series(['C', 'A', nan, 'D'], [0, 1, 2, nan])
+        assert_series_equal(sorted_series, expected_series)
+
+        # na_position='first'
+        sorted_series = ser.sort_index(na_position='first')
+        expected_series = Series(['D', 'C', 'A', nan], [nan, 0, 1, 2])
+        assert_series_equal(sorted_series, expected_series)

@@ -148,15 +148,14 @@ class TestSeriesSorting(TestData, tm.TestCase):
     def test_sort_index_nan(self):
 
         # GH13729
-        nan = np.nan
-        ser = Series(['A', nan, 'C', 'D'], [1, 2, 0, nan])
+        ser = Series(['A', np.nan, 'C', 'D'], [1, 2, 0, np.nan])
 
         # na_position='last', kind='quicksort'
         sorted_series = ser.sort_index(kind='quicksort', na_position='last')
-        expected_series = Series(['C', 'A', nan, 'D'], [0, 1, 2, nan])
+        expected_series = Series(['C', 'A', np.nan, 'D'], [0, 1, 2, np.nan])
         assert_series_equal(sorted_series, expected_series)
 
         # na_position='first'
-        sorted_series = ser.sort_index(na_position='first')
-        expected_series = Series(['D', 'C', 'A', nan], [nan, 0, 1, 2])
-        assert_series_equal(sorted_series, expected_series)
+        sorted = ser.sort_index(na_position='first')
+        expected = Series(['D', 'C', 'A', np.nan], [np.nan, 0, 1, 2])
+        assert_series_equal(sorted, expected)

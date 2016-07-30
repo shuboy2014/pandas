@@ -111,6 +111,8 @@ class Series(base.IndexOpsMixin, strings.StringAccessorMixin,
     associated index values-- they need not be the same length. The result
     index will be the sorted union of the two indexes.
 
+    `kind` and `na_position` were added in 0.19.0 to Series.sort_index()
+
     Parameters
     ----------
     data : array-like, dict, or scalar value

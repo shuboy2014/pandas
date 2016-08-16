@@ -5,7 +5,7 @@ import random
 
 from pandas import (DataFrame, Series, MultiIndex)
 
-from pandas.util.testing import (assert_series_equal, assert_almost_equal)
+from pandas.util.testing import (assert_series_equal, assert_almost_equal, assertRaisesRegexp)
 import pandas.util.testing as tm
 
 from .common import TestData
@@ -159,3 +159,7 @@ class TestSeriesSorting(TestData, tm.TestCase):
         result = ser.sort_index(na_position='first')
         expected = Series(['D', 'C', 'A', np.nan], [np.nan, 0, 1, 2])
         assert_series_equal(result, expected)
+
+        # invalid argument
+        assertRaisesRegexp(TypeError, 'got an unexpected keyword argument',
+                            ser.sort_index, arg='first')

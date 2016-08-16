@@ -2018,9 +2018,6 @@ class NDFrame(PandasObject):
         sort_remaining : bool, default True
             if true and sorting by level and index is multilevel, sort by other
             levels too (in order) after sorting by specified level
-
-            .. versionadded:: 0.19.0
-
         kind : {'quicksort', 'mergesort', 'heapsort'}, default 'quicksort'
              Choice of sorting algorithm. See also ndarray.np.sort for more
              information.  `mergesort` is the only stable algorithm. For
